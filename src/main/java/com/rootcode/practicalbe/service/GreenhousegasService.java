@@ -2,6 +2,7 @@ package com.rootcode.practicalbe.service;
 
 import com.rootcode.practicalbe.controller.GreenhousegasController;
 import com.rootcode.practicalbe.dto.GreenhousegasDTO;
+import com.rootcode.practicalbe.dto.MaxSectorDTO;
 import com.rootcode.practicalbe.dto.ResponseDTO;
 import com.rootcode.practicalbe.entity.greenhousegas;
 import com.rootcode.practicalbe.repo.GreenhousegasRepo;
@@ -67,7 +68,7 @@ public class GreenhousegasService {
                 String sector = greenhousegasRepo.getMaxEmission(year);
                 responseDTO.setCode(VarList.RSP_SUCCESS);
                 responseDTO.setMessage("Success");
-                responseDTO.setContent(new JSONObject().put("max emission sector",sector));
+                responseDTO.setContent(MaxSectorDTO.builder().max_emission_sector(sector).build());
                 return new ResponseEntity(responseDTO, HttpStatus.OK);
 
         }catch (Exception error){
