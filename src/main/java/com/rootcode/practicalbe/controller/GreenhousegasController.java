@@ -21,19 +21,19 @@ public class GreenhousegasController {
     private ResponseDTO responseDTO;
 
     //enter new greenhouse gas emission
-    @PostMapping("/saveNew")
+    @PostMapping("/savenew")
     public ResponseEntity saveNew(@RequestBody GreenhousegasDTO greenhousegasDTO){
         return greenhousegasService.saveNew(greenhousegasDTO);
     }
 
     //get sectors which emitted more than 500 Tonnes in given year
-    @GetMapping("/getSectorByYear/{year}")
-    public List<GreenhousegasDTO> getSectorByYear(@PathVariable String year){
+    @GetMapping("/getsectors/{year}")
+    public ResponseEntity getSectorByYear(@PathVariable String year){
         return greenhousegasService.getSectorByYear(year);
     }
 
     //get sector with maximum emission of a greenhouse gas
-    @GetMapping("/getMaxEmission/{year}")
+    @GetMapping("/getemission/{year}")
     public ResponseEntity getMaxEmission(@PathVariable String year){
         return greenhousegasService.getMaxEmission(year);
     }

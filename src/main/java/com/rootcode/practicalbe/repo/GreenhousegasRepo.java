@@ -4,7 +4,14 @@ import com.rootcode.practicalbe.entity.greenhousegas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface GreenhousegasRepo extends JpaRepository<greenhousegas,Integer>{
-    @Query(value = "SELECT sector FROM greenhousegas WHERE year = ?1",nativeQuery = true)
-    greenhousegas getSectorByYear(String year);
+    @Query(value = "SELECT DISTINCT sector FROM greenhousegas WHERE year = ?1 AND value > 500",nativeQuery = true)
+    List<String> getSectorByYear(String year);
+
+    @Query(value = "SELECT MAX(value ) sector FROM greenhousegas WHERE year = ?1",nativeQuery = true)
+    greenhousegas getMaxEmission(String year);
+
+
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Data
 public class ResponseDTO {
-    private String code;
+    private int code;
     private String message;
     private Object content;
 }

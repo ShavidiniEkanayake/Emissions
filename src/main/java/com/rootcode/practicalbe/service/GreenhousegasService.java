@@ -38,7 +38,7 @@ public class GreenhousegasService {
             responseDTO.setCode(VarList.RSP_SUCCESS);
             responseDTO.setMessage("Successfully added");
             responseDTO.setContent(greenhousegasDTO);
-            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            return new ResponseEntity(responseDTO, HttpStatus.OK);
         }catch (Exception error){
             responseDTO.setCode(VarList.RSP_ERROR);
             responseDTO.setMessage(error.getMessage());
@@ -49,10 +49,11 @@ public class GreenhousegasService {
     }
 
     //get sectors which emitted more than 500 Tonnes in given year
-    public List<GreenhousegasDTO> getSectorByYear(String year){
+    public ResponseEntity getSectorByYear(String year){
         try{
-            List<greenhousegas>greenhousegasList= greenhousegasRepo.getSectorByYear(year);
-            return modelMapper.map(greenhousegasList, new TypeToken<List<GreenhousegasDTO>>(){}.getType());
+            List<String>greenhousegasList= greenhousegasRepo.getSectorByYear(year);
+            logger.debug(greenhousegasList.toString());
+            return ResponseEntity.ok().body(greenhousegasList);
         }catch (Exception error){
             logger.error("Can not retrieve data");
             throw error;
@@ -60,4 +61,19 @@ public class GreenhousegasService {
     }
 
     //get sector with maximum emission of a greenhouse gas
+    public ResponseEntity getMaxEmission(String year){
+        try{
+                greenhousegas greenhousegas = greenhousegasRepo.getMaxEmission(year);
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(greenhousegas);
+                return new ResponseEntity(responseDTO, HttpStatus.OK);
+
+        }catch (Exception error){
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(error.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
