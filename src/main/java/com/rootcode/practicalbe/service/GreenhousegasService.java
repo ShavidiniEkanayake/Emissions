@@ -7,6 +7,7 @@ import com.rootcode.practicalbe.entity.greenhousegas;
 import com.rootcode.practicalbe.repo.GreenhousegasRepo;
 import com.rootcode.practicalbe.util.VarList;
 import jakarta.transaction.Transactional;
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -63,10 +64,10 @@ public class GreenhousegasService {
     //get sector with maximum emission of a greenhouse gas
     public ResponseEntity getMaxEmission(String year){
         try{
-                greenhousegas greenhousegas = greenhousegasRepo.getMaxEmission(year);
+                String sector = greenhousegasRepo.getMaxEmission(year);
                 responseDTO.setCode(VarList.RSP_SUCCESS);
                 responseDTO.setMessage("Success");
-                responseDTO.setContent(greenhousegas);
+                responseDTO.setContent(new JSONObject().put("max emission sector",sector));
                 return new ResponseEntity(responseDTO, HttpStatus.OK);
 
         }catch (Exception error){
